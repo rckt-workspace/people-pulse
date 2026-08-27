@@ -79,7 +79,7 @@ function SessionWizard() {
   const [saving, setSaving] = useState(false);
   const [savedAt, setSavedAt] = useState<Date | null>(null);
   const [customQuestion, setCustomQuestion] = useState("");
-  const [customCategory, setCustomCategory] = useState(QUESTION_CATEGORIES[0]);
+  const [customCategory, setCustomCategory] = useState<string>(QUESTION_CATEGORIES[0]!);
   const [newTopic, setNewTopic] = useState("");
   const initialised = useRef(false);
   const seeded = useRef(false);
@@ -509,7 +509,7 @@ function SessionWizard() {
                       if (!newTopic.trim()) return;
                       await supabase
                         .from("session_topics")
-                        .insert({ session_id: sessionId, topic: newTopic.trim() });
+                        .insert({ session_id: sessionId, employee_id: employee.id, topic: newTopic.trim() });
                       setNewTopic("");
                       queryClient.invalidateQueries({ queryKey: ["session", sessionId] });
                     }}
@@ -770,7 +770,7 @@ function SessionWizard() {
                       if (draft.wellbeing[dimension.name]) {
                         saveWellbeing(
                           dimension.name,
-                          draft.wellbeing[dimension.name],
+                          draft.wellbeing[dimension.name]!,
                           draft.wellbeingNotes[dimension.name] ?? "",
                         );
                       }
@@ -953,7 +953,7 @@ function QuestionField({
 }: {
   label: string;
   value: string;
-  badge?: string;
+  badge?: string | undefined;
   onChange: (value: string) => void;
   onBlur: () => void;
 }) {
@@ -986,7 +986,7 @@ function BlockersStep({
   historicBlockers: { id: string; category: string; description: string | null; status: string }[];
   onChange: () => void;
 }) {
-  const [category, setCategory] = useState(BLOCKER_CATEGORIES[0]);
+  const [category, setCategory] = useState<string>(BLOCKER_CATEGORIES[0]!);
   const [description, setDescription] = useState("");
   const [severity, setSeverity] = useState("media");
   const [status, setStatus] = useState("nuevo");
@@ -1167,7 +1167,7 @@ function CommitmentsEditor({
   onChange: () => void;
 }) {
   const [description, setDescription] = useState("");
-  const [responsible, setResponsible] = useState(COMMITMENT_RESPONSIBLES[0]);
+  const [responsible, setResponsible] = useState<string>(COMMITMENT_RESPONSIBLES[0]!);
   const [dueDate, setDueDate] = useState("");
   const [priority, setPriority] = useState("media");
 
