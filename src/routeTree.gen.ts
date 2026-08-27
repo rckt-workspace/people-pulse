@@ -15,10 +15,10 @@ import { Route as DesarrolloRouteImport } from './routes/desarrollo'
 import { Route as PeopleInsightsRouteImport } from './routes/people-insights'
 import { Route as PerfilRouteImport } from './routes/perfil'
 import { Route as SeguimientosRouteImport } from './routes/seguimientos'
-import { Route as UnoAUnoRouteImport } from './routes/uno-a-uno'
 import { Route as PersonasIndexRouteImport } from './routes/personas.index'
 import { Route as PersonasIdRouteImport } from './routes/personas.$id'
 import { Route as PersonasNuevaRouteImport } from './routes/personas.nueva'
+import { Route as UnoAUnoIndexRouteImport } from './routes/uno-a-uno.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -50,11 +50,6 @@ const SeguimientosRoute = SeguimientosRouteImport.update({
   path: '/seguimientos',
   getParentRoute: () => rootRouteImport,
 } as any)
-const UnoAUnoRoute = UnoAUnoRouteImport.update({
-  id: '/uno-a-uno',
-  path: '/uno-a-uno',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PersonasIndexRoute = PersonasIndexRouteImport.update({
   id: '/personas/',
   path: '/personas/',
@@ -70,6 +65,11 @@ const PersonasNuevaRoute = PersonasNuevaRouteImport.update({
   path: '/personas/nueva',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UnoAUnoIndexRoute = UnoAUnoIndexRouteImport.update({
+  id: '/uno-a-uno/',
+  path: '/uno-a-uno/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -78,10 +78,10 @@ export interface FileRoutesByFullPath {
   '/people-insights': typeof PeopleInsightsRoute
   '/perfil': typeof PerfilRoute
   '/seguimientos': typeof SeguimientosRoute
-  '/uno-a-uno': typeof UnoAUnoRoute
   '/personas/$id': typeof PersonasIdRoute
   '/personas/nueva': typeof PersonasNuevaRoute
   '/personas/': typeof PersonasIndexRoute
+  '/uno-a-uno/': typeof UnoAUnoIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -90,10 +90,10 @@ export interface FileRoutesByTo {
   '/people-insights': typeof PeopleInsightsRoute
   '/perfil': typeof PerfilRoute
   '/seguimientos': typeof SeguimientosRoute
-  '/uno-a-uno': typeof UnoAUnoRoute
   '/personas/$id': typeof PersonasIdRoute
   '/personas/nueva': typeof PersonasNuevaRoute
   '/personas': typeof PersonasIndexRoute
+  '/uno-a-uno': typeof UnoAUnoIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -103,10 +103,10 @@ export interface FileRoutesById {
   '/people-insights': typeof PeopleInsightsRoute
   '/perfil': typeof PerfilRoute
   '/seguimientos': typeof SeguimientosRoute
-  '/uno-a-uno': typeof UnoAUnoRoute
   '/personas/$id': typeof PersonasIdRoute
   '/personas/nueva': typeof PersonasNuevaRoute
   '/personas/': typeof PersonasIndexRoute
+  '/uno-a-uno/': typeof UnoAUnoIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -117,10 +117,10 @@ export interface FileRouteTypes {
     | '/people-insights'
     | '/perfil'
     | '/seguimientos'
-    | '/uno-a-uno'
     | '/personas/$id'
     | '/personas/nueva'
     | '/personas/'
+    | '/uno-a-uno/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -129,10 +129,10 @@ export interface FileRouteTypes {
     | '/people-insights'
     | '/perfil'
     | '/seguimientos'
-    | '/uno-a-uno'
     | '/personas/$id'
     | '/personas/nueva'
     | '/personas'
+    | '/uno-a-uno'
   id:
     | '__root__'
     | '/'
@@ -141,10 +141,10 @@ export interface FileRouteTypes {
     | '/people-insights'
     | '/perfil'
     | '/seguimientos'
-    | '/uno-a-uno'
     | '/personas/$id'
     | '/personas/nueva'
     | '/personas/'
+    | '/uno-a-uno/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -154,10 +154,10 @@ export interface RootRouteChildren {
   PeopleInsightsRoute: typeof PeopleInsightsRoute
   PerfilRoute: typeof PerfilRoute
   SeguimientosRoute: typeof SeguimientosRoute
-  UnoAUnoRoute: typeof UnoAUnoRoute
   PersonasIdRoute: typeof PersonasIdRoute
   PersonasNuevaRoute: typeof PersonasNuevaRoute
   PersonasIndexRoute: typeof PersonasIndexRoute
+  UnoAUnoIndexRoute: typeof UnoAUnoIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -204,13 +204,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SeguimientosRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/uno-a-uno': {
-      id: '/uno-a-uno'
-      path: '/uno-a-uno'
-      fullPath: '/uno-a-uno'
-      preLoaderRoute: typeof UnoAUnoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/personas/': {
       id: '/personas/'
       path: '/personas'
@@ -232,6 +225,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PersonasNuevaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/uno-a-uno/': {
+      id: '/uno-a-uno/'
+      path: '/uno-a-uno'
+      fullPath: '/uno-a-uno/'
+      preLoaderRoute: typeof UnoAUnoIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -242,10 +242,10 @@ const rootRouteChildren: RootRouteChildren = {
   PeopleInsightsRoute: PeopleInsightsRoute,
   PerfilRoute: PerfilRoute,
   SeguimientosRoute: SeguimientosRoute,
-  UnoAUnoRoute: UnoAUnoRoute,
   PersonasIdRoute: PersonasIdRoute,
   PersonasNuevaRoute: PersonasNuevaRoute,
   PersonasIndexRoute: PersonasIndexRoute,
+  UnoAUnoIndexRoute: UnoAUnoIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
