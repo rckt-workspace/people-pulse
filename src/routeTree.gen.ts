@@ -10,33 +10,180 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ConfiguracionRouteImport } from './routes/configuracion'
+import { Route as DesarrolloRouteImport } from './routes/desarrollo'
+import { Route as PeopleInsightsRouteImport } from './routes/people-insights'
+import { Route as PerfilRouteImport } from './routes/perfil'
+import { Route as SeguimientosRouteImport } from './routes/seguimientos'
+import { Route as PersonasIndexRouteImport } from './routes/personas.index'
+import { Route as PersonasIdRouteImport } from './routes/personas.$id'
+import { Route as PersonasNuevaRouteImport } from './routes/personas.nueva'
+import { Route as SesionesIdRouteImport } from './routes/sesiones.$id'
+import { Route as UnoAUnoIndexRouteImport } from './routes/uno-a-uno.index'
+import { Route as UnoAUnoSessionIdRouteImport } from './routes/uno-a-uno.$sessionId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConfiguracionRoute = ConfiguracionRouteImport.update({
+  id: '/configuracion',
+  path: '/configuracion',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DesarrolloRoute = DesarrolloRouteImport.update({
+  id: '/desarrollo',
+  path: '/desarrollo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PeopleInsightsRoute = PeopleInsightsRouteImport.update({
+  id: '/people-insights',
+  path: '/people-insights',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PerfilRoute = PerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SeguimientosRoute = SeguimientosRouteImport.update({
+  id: '/seguimientos',
+  path: '/seguimientos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PersonasIndexRoute = PersonasIndexRouteImport.update({
+  id: '/personas/',
+  path: '/personas/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PersonasIdRoute = PersonasIdRouteImport.update({
+  id: '/personas/$id',
+  path: '/personas/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PersonasNuevaRoute = PersonasNuevaRouteImport.update({
+  id: '/personas/nueva',
+  path: '/personas/nueva',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SesionesIdRoute = SesionesIdRouteImport.update({
+  id: '/sesiones/$id',
+  path: '/sesiones/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UnoAUnoIndexRoute = UnoAUnoIndexRouteImport.update({
+  id: '/uno-a-uno/',
+  path: '/uno-a-uno/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UnoAUnoSessionIdRoute = UnoAUnoSessionIdRouteImport.update({
+  id: '/uno-a-uno/$sessionId',
+  path: '/uno-a-uno/$sessionId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/configuracion': typeof ConfiguracionRoute
+  '/desarrollo': typeof DesarrolloRoute
+  '/people-insights': typeof PeopleInsightsRoute
+  '/perfil': typeof PerfilRoute
+  '/seguimientos': typeof SeguimientosRoute
+  '/personas/$id': typeof PersonasIdRoute
+  '/personas/nueva': typeof PersonasNuevaRoute
+  '/sesiones/$id': typeof SesionesIdRoute
+  '/uno-a-uno/$sessionId': typeof UnoAUnoSessionIdRoute
+  '/personas/': typeof PersonasIndexRoute
+  '/uno-a-uno/': typeof UnoAUnoIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/configuracion': typeof ConfiguracionRoute
+  '/desarrollo': typeof DesarrolloRoute
+  '/people-insights': typeof PeopleInsightsRoute
+  '/perfil': typeof PerfilRoute
+  '/seguimientos': typeof SeguimientosRoute
+  '/personas/$id': typeof PersonasIdRoute
+  '/personas/nueva': typeof PersonasNuevaRoute
+  '/sesiones/$id': typeof SesionesIdRoute
+  '/uno-a-uno/$sessionId': typeof UnoAUnoSessionIdRoute
+  '/personas': typeof PersonasIndexRoute
+  '/uno-a-uno': typeof UnoAUnoIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/configuracion': typeof ConfiguracionRoute
+  '/desarrollo': typeof DesarrolloRoute
+  '/people-insights': typeof PeopleInsightsRoute
+  '/perfil': typeof PerfilRoute
+  '/seguimientos': typeof SeguimientosRoute
+  '/personas/$id': typeof PersonasIdRoute
+  '/personas/nueva': typeof PersonasNuevaRoute
+  '/sesiones/$id': typeof SesionesIdRoute
+  '/uno-a-uno/$sessionId': typeof UnoAUnoSessionIdRoute
+  '/personas/': typeof PersonasIndexRoute
+  '/uno-a-uno/': typeof UnoAUnoIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/configuracion'
+    | '/desarrollo'
+    | '/people-insights'
+    | '/perfil'
+    | '/seguimientos'
+    | '/personas/$id'
+    | '/personas/nueva'
+    | '/sesiones/$id'
+    | '/uno-a-uno/$sessionId'
+    | '/personas/'
+    | '/uno-a-uno/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/configuracion'
+    | '/desarrollo'
+    | '/people-insights'
+    | '/perfil'
+    | '/seguimientos'
+    | '/personas/$id'
+    | '/personas/nueva'
+    | '/sesiones/$id'
+    | '/uno-a-uno/$sessionId'
+    | '/personas'
+    | '/uno-a-uno'
+  id:
+    | '__root__'
+    | '/'
+    | '/configuracion'
+    | '/desarrollo'
+    | '/people-insights'
+    | '/perfil'
+    | '/seguimientos'
+    | '/personas/$id'
+    | '/personas/nueva'
+    | '/sesiones/$id'
+    | '/uno-a-uno/$sessionId'
+    | '/personas/'
+    | '/uno-a-uno/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ConfiguracionRoute: typeof ConfiguracionRoute
+  DesarrolloRoute: typeof DesarrolloRoute
+  PeopleInsightsRoute: typeof PeopleInsightsRoute
+  PerfilRoute: typeof PerfilRoute
+  SeguimientosRoute: typeof SeguimientosRoute
+  PersonasIdRoute: typeof PersonasIdRoute
+  PersonasNuevaRoute: typeof PersonasNuevaRoute
+  SesionesIdRoute: typeof SesionesIdRoute
+  UnoAUnoSessionIdRoute: typeof UnoAUnoSessionIdRoute
+  PersonasIndexRoute: typeof PersonasIndexRoute
+  UnoAUnoIndexRoute: typeof UnoAUnoIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +195,99 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/configuracion': {
+      id: '/configuracion'
+      path: '/configuracion'
+      fullPath: '/configuracion'
+      preLoaderRoute: typeof ConfiguracionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/desarrollo': {
+      id: '/desarrollo'
+      path: '/desarrollo'
+      fullPath: '/desarrollo'
+      preLoaderRoute: typeof DesarrolloRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/people-insights': {
+      id: '/people-insights'
+      path: '/people-insights'
+      fullPath: '/people-insights'
+      preLoaderRoute: typeof PeopleInsightsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/perfil': {
+      id: '/perfil'
+      path: '/perfil'
+      fullPath: '/perfil'
+      preLoaderRoute: typeof PerfilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seguimientos': {
+      id: '/seguimientos'
+      path: '/seguimientos'
+      fullPath: '/seguimientos'
+      preLoaderRoute: typeof SeguimientosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/personas/': {
+      id: '/personas/'
+      path: '/personas'
+      fullPath: '/personas/'
+      preLoaderRoute: typeof PersonasIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/personas/$id': {
+      id: '/personas/$id'
+      path: '/personas/$id'
+      fullPath: '/personas/$id'
+      preLoaderRoute: typeof PersonasIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/personas/nueva': {
+      id: '/personas/nueva'
+      path: '/personas/nueva'
+      fullPath: '/personas/nueva'
+      preLoaderRoute: typeof PersonasNuevaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sesiones/$id': {
+      id: '/sesiones/$id'
+      path: '/sesiones/$id'
+      fullPath: '/sesiones/$id'
+      preLoaderRoute: typeof SesionesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/uno-a-uno/': {
+      id: '/uno-a-uno/'
+      path: '/uno-a-uno'
+      fullPath: '/uno-a-uno/'
+      preLoaderRoute: typeof UnoAUnoIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/uno-a-uno/$sessionId': {
+      id: '/uno-a-uno/$sessionId'
+      path: '/uno-a-uno/$sessionId'
+      fullPath: '/uno-a-uno/$sessionId'
+      preLoaderRoute: typeof UnoAUnoSessionIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ConfiguracionRoute: ConfiguracionRoute,
+  DesarrolloRoute: DesarrolloRoute,
+  PeopleInsightsRoute: PeopleInsightsRoute,
+  PerfilRoute: PerfilRoute,
+  SeguimientosRoute: SeguimientosRoute,
+  PersonasIdRoute: PersonasIdRoute,
+  PersonasNuevaRoute: PersonasNuevaRoute,
+  SesionesIdRoute: SesionesIdRoute,
+  UnoAUnoSessionIdRoute: UnoAUnoSessionIdRoute,
+  PersonasIndexRoute: PersonasIndexRoute,
+  UnoAUnoIndexRoute: UnoAUnoIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
