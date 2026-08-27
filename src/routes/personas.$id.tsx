@@ -208,8 +208,8 @@ function PersonaDetalle() {
                       </button>
                     </TooltipTrigger>
                     <TooltipContent className="max-w-xs">
-                      Este indicador resume evolución observable en desempeño y desarrollo. No
-                      representa una evaluación psicológica.
+                      {DEV_INDEX_DISCLAIMER}
+
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
