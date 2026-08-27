@@ -271,7 +271,7 @@ function PersonaDetalle() {
               <EmptyState
                 icon={MessageSquare}
                 title="Todavía no hay conversaciones registradas"
-                description="Las sesiones 1:1 se registrarán desde el módulo de conversaciones en la siguiente fase."
+                description="Prepara una conversación desde el botón Preparar 1:1."
               />
             ) : (
               <Timeline>
@@ -292,6 +292,11 @@ function PersonaDetalle() {
                     {session.general_notes ? (
                       <p className="mt-2 text-sm text-muted-foreground">{session.general_notes}</p>
                     ) : null}
+                    <Button asChild size="sm" variant="ghost" className="mt-2 -ml-2">
+                      <Link to="/sesiones/$id" params={{ id: session.id }}>
+                        Ver detalle de la sesión
+                      </Link>
+                    </Button>
                   </TimelineItem>
                 ))}
               </Timeline>
