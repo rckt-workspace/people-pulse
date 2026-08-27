@@ -113,9 +113,9 @@ function Seguimientos() {
       />
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <KpiCard label="Compromisos abiertos" value={open.length} />
-        <KpiCard label="Vencidos" value={overdue.length} tone={overdue.length ? "critical" : "positive"} />
-        <KpiCard label="Cumplidos" value={done.length} />
+        <KpiCard label="Compromisos abiertos" value={String(open.length)} />
+        <KpiCard label="Vencidos" value={String(overdue.length)} tone={overdue.length ? "critical" : "positive"} />
+        <KpiCard label="Cumplidos" value={String(done.length)} />
         <KpiCard label="Tasa de cumplimiento" value={`${rate}%`} />
       </div>
 
