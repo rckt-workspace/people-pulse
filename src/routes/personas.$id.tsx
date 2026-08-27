@@ -31,6 +31,8 @@ import {
   employeeStatusTone,
   indicatorStatusTone,
 } from "@/components/pc/primitives";
+import { DevelopmentPanel } from "@/components/pc/DevelopmentPanel";
+
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -339,14 +341,9 @@ function PersonaDetalle() {
 
         {/* -------------------------------- Desarrollo ------------------------------ */}
         <TabsContent value="desarrollo" className="mt-6">
-          <Panel>
-            <EmptyState
-              icon={Compass}
-              title="El plan de desarrollo llega en la siguiente fase"
-              description="Aquí verás objetivos de desarrollo, competencias y evolución del rol."
-            />
-          </Panel>
+          <DevelopmentPanel employeeId={employee.id} employeeName={employee.full_name} />
         </TabsContent>
+
 
         {/* -------------------------------- Formación ------------------------------- */}
         <TabsContent value="formacion" className="mt-6 space-y-6">
