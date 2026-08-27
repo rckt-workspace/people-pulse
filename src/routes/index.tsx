@@ -96,9 +96,9 @@ const TRAINING = {
 };
 
 const UPCOMING = [
-  { name: "Laura Gómez", role: "Senior UX Designer", when: "Hoy 10:00 AM" },
-  { name: "Juan Pérez", role: "Backend Developer", when: "Mañana 3:00 PM" },
-  { name: "Camila Torres", role: "Account Manager", when: "Viernes 11:00 AM" },
+  { name: "Anyely Huelgos", role: "Shopify & Frontend Developer", when: "Hoy 10:00 AM" },
+  { name: "Jaime Cardona", role: "AI & Data Engineer", when: "Mañana 3:00 PM" },
+  { name: "Mariana Cano", role: "Performance Creative", when: "Viernes 11:00 AM" },
 ];
 
 function Overview() {

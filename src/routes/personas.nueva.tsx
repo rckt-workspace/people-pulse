@@ -157,7 +157,7 @@ function NuevaPersona() {
               value={form.full_name}
               onChange={(v) => setField("full_name", v)}
               error={errors['full_name']}
-              placeholder="Ej. Laura Gómez"
+              placeholder="Ej. Anyely Huelgos"
             />
             <Field
               label="Cargo"
