@@ -32,6 +32,8 @@ import {
   indicatorStatusTone,
 } from "@/components/pc/primitives";
 import { DevelopmentPanel } from "@/components/pc/DevelopmentPanel";
+import { DEV_INDEX_DISCLAIMER } from "@/lib/development";
+
 
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
