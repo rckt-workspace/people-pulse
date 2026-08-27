@@ -1,5 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   ArrowLeft,
   BookOpen,
@@ -35,6 +35,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { createDraftSession } from "@/lib/sessions";
 import {
   INDICATOR_STATUS_LABEL,
   STATUS_LABEL,
@@ -71,6 +72,13 @@ const soon = () => toast("Disponible en la siguiente fase.");
 function PersonaDetalle() {
   const { id } = Route.useParams();
   const { data, isLoading } = useQuery(employeeQuery(id));
+  const navigate = useNavigate();
+  const startSession = useMutation({
+    mutationFn: () => createDraftSession(id),
+    onSuccess: (sessionId) =>
+      navigate({ to: "/uno-a-uno/$sessionId", params: { sessionId } }),
+    onError: () => toast.error("No fue posible iniciar la sesión."),
+  });
 
   if (isLoading) {
     return (
