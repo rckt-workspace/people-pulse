@@ -144,11 +144,14 @@ function PersonaDetalle() {
           </div>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={soon}>
-            Nuevo seguimiento
+          <Button asChild variant="outline">
+            <Link to="/seguimientos">Ver seguimientos</Link>
           </Button>
-          <Button onClick={soon}>Preparar 1:1</Button>
+          <Button onClick={() => startSession.mutate()} disabled={startSession.isPending}>
+            Preparar 1:1
+          </Button>
         </div>
+
       </header>
 
       <Tabs defaultValue="resumen">
