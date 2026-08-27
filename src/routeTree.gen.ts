@@ -18,6 +18,7 @@ import { Route as SeguimientosRouteImport } from './routes/seguimientos'
 import { Route as PersonasIndexRouteImport } from './routes/personas.index'
 import { Route as PersonasIdRouteImport } from './routes/personas.$id'
 import { Route as PersonasNuevaRouteImport } from './routes/personas.nueva'
+import { Route as SesionesIdRouteImport } from './routes/sesiones.$id'
 import { Route as UnoAUnoIndexRouteImport } from './routes/uno-a-uno.index'
 import { Route as UnoAUnoSessionIdRouteImport } from './routes/uno-a-uno.$sessionId'
 
@@ -66,6 +67,11 @@ const PersonasNuevaRoute = PersonasNuevaRouteImport.update({
   path: '/personas/nueva',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SesionesIdRoute = SesionesIdRouteImport.update({
+  id: '/sesiones/$id',
+  path: '/sesiones/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const UnoAUnoIndexRoute = UnoAUnoIndexRouteImport.update({
   id: '/uno-a-uno/',
   path: '/uno-a-uno/',
@@ -86,6 +92,7 @@ export interface FileRoutesByFullPath {
   '/seguimientos': typeof SeguimientosRoute
   '/personas/$id': typeof PersonasIdRoute
   '/personas/nueva': typeof PersonasNuevaRoute
+  '/sesiones/$id': typeof SesionesIdRoute
   '/uno-a-uno/$sessionId': typeof UnoAUnoSessionIdRoute
   '/personas/': typeof PersonasIndexRoute
   '/uno-a-uno/': typeof UnoAUnoIndexRoute
@@ -99,6 +106,7 @@ export interface FileRoutesByTo {
   '/seguimientos': typeof SeguimientosRoute
   '/personas/$id': typeof PersonasIdRoute
   '/personas/nueva': typeof PersonasNuevaRoute
+  '/sesiones/$id': typeof SesionesIdRoute
   '/uno-a-uno/$sessionId': typeof UnoAUnoSessionIdRoute
   '/personas': typeof PersonasIndexRoute
   '/uno-a-uno': typeof UnoAUnoIndexRoute
@@ -113,6 +121,7 @@ export interface FileRoutesById {
   '/seguimientos': typeof SeguimientosRoute
   '/personas/$id': typeof PersonasIdRoute
   '/personas/nueva': typeof PersonasNuevaRoute
+  '/sesiones/$id': typeof SesionesIdRoute
   '/uno-a-uno/$sessionId': typeof UnoAUnoSessionIdRoute
   '/personas/': typeof PersonasIndexRoute
   '/uno-a-uno/': typeof UnoAUnoIndexRoute
@@ -128,6 +137,7 @@ export interface FileRouteTypes {
     | '/seguimientos'
     | '/personas/$id'
     | '/personas/nueva'
+    | '/sesiones/$id'
     | '/uno-a-uno/$sessionId'
     | '/personas/'
     | '/uno-a-uno/'
@@ -141,6 +151,7 @@ export interface FileRouteTypes {
     | '/seguimientos'
     | '/personas/$id'
     | '/personas/nueva'
+    | '/sesiones/$id'
     | '/uno-a-uno/$sessionId'
     | '/personas'
     | '/uno-a-uno'
@@ -154,6 +165,7 @@ export interface FileRouteTypes {
     | '/seguimientos'
     | '/personas/$id'
     | '/personas/nueva'
+    | '/sesiones/$id'
     | '/uno-a-uno/$sessionId'
     | '/personas/'
     | '/uno-a-uno/'
@@ -168,6 +180,7 @@ export interface RootRouteChildren {
   SeguimientosRoute: typeof SeguimientosRoute
   PersonasIdRoute: typeof PersonasIdRoute
   PersonasNuevaRoute: typeof PersonasNuevaRoute
+  SesionesIdRoute: typeof SesionesIdRoute
   UnoAUnoSessionIdRoute: typeof UnoAUnoSessionIdRoute
   PersonasIndexRoute: typeof PersonasIndexRoute
   UnoAUnoIndexRoute: typeof UnoAUnoIndexRoute
@@ -238,6 +251,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PersonasNuevaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sesiones/$id': {
+      id: '/sesiones/$id'
+      path: '/sesiones/$id'
+      fullPath: '/sesiones/$id'
+      preLoaderRoute: typeof SesionesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/uno-a-uno/': {
       id: '/uno-a-uno/'
       path: '/uno-a-uno'
@@ -264,6 +284,7 @@ const rootRouteChildren: RootRouteChildren = {
   SeguimientosRoute: SeguimientosRoute,
   PersonasIdRoute: PersonasIdRoute,
   PersonasNuevaRoute: PersonasNuevaRoute,
+  SesionesIdRoute: SesionesIdRoute,
   UnoAUnoSessionIdRoute: UnoAUnoSessionIdRoute,
   PersonasIndexRoute: PersonasIndexRoute,
   UnoAUnoIndexRoute: UnoAUnoIndexRoute,
