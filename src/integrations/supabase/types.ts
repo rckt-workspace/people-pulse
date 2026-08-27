@@ -58,6 +58,24 @@ export type Database = {
           },
         ]
       }
+      app_settings: {
+        Row: {
+          key: string
+          updated_at: string
+          value: Json
+        }
+        Insert: {
+          key: string
+          updated_at?: string
+          value: Json
+        }
+        Update: {
+          key?: string
+          updated_at?: string
+          value?: Json
+        }
+        Relationships: []
+      }
       app_users: {
         Row: {
           created_at: string
@@ -367,6 +385,7 @@ export type Database = {
       }
       development_goals: {
         Row: {
+          actions: string | null
           category: string | null
           created_at: string
           current_state: string | null
@@ -374,11 +393,17 @@ export type Database = {
           employee_id: string
           id: string
           progress: number
+          related_courses: string | null
+          related_indicators: string | null
+          responsible: string | null
           status: string
+          target_date: string | null
           target_state: string | null
           title: string
+          updated_at: string
         }
         Insert: {
+          actions?: string | null
           category?: string | null
           created_at?: string
           current_state?: string | null
@@ -386,11 +411,17 @@ export type Database = {
           employee_id: string
           id?: string
           progress?: number
+          related_courses?: string | null
+          related_indicators?: string | null
+          responsible?: string | null
           status?: string
+          target_date?: string | null
           target_state?: string | null
           title: string
+          updated_at?: string
         }
         Update: {
+          actions?: string | null
           category?: string | null
           created_at?: string
           current_state?: string | null
@@ -398,13 +429,115 @@ export type Database = {
           employee_id?: string
           id?: string
           progress?: number
+          related_courses?: string | null
+          related_indicators?: string | null
+          responsible?: string | null
           status?: string
+          target_date?: string | null
+          target_state?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "development_goals_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "employees"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      development_index_history: {
+        Row: {
+          commitments_score: number | null
+          competencies_score: number | null
+          created_at: string
+          employee_id: string
+          goals_score: number | null
+          id: string
+          performance_score: number | null
+          period_month: string
+          total_score: number
+          training_score: number | null
+        }
+        Insert: {
+          commitments_score?: number | null
+          competencies_score?: number | null
+          created_at?: string
+          employee_id: string
+          goals_score?: number | null
+          id?: string
+          performance_score?: number | null
+          period_month: string
+          total_score: number
+          training_score?: number | null
+        }
+        Update: {
+          commitments_score?: number | null
+          competencies_score?: number | null
+          created_at?: string
+          employee_id?: string
+          goals_score?: number | null
+          id?: string
+          performance_score?: number | null
+          period_month?: string
+          total_score?: number
+          training_score?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "development_index_history_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "employees"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      development_suggestions: {
+        Row: {
+          category: string | null
+          created_at: string
+          current_state: string | null
+          employee_id: string
+          evidence: string | null
+          id: string
+          rationale: string | null
+          status: string
+          suggested_actions: string | null
+          target_state: string | null
+          title: string
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          current_state?: string | null
+          employee_id: string
+          evidence?: string | null
+          id?: string
+          rationale?: string | null
+          status?: string
+          suggested_actions?: string | null
+          target_state?: string | null
+          title: string
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          current_state?: string | null
+          employee_id?: string
+          evidence?: string | null
+          id?: string
+          rationale?: string | null
+          status?: string
+          suggested_actions?: string | null
           target_state?: string | null
           title?: string
         }
         Relationships: [
           {
-            foreignKeyName: "development_goals_employee_id_fkey"
+            foreignKeyName: "development_suggestions_employee_id_fkey"
             columns: ["employee_id"]
             isOneToOne: false
             referencedRelation: "employees"
