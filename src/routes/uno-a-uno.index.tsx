@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ModulePlaceholder } from "@/components/pc/primitives";
 
-export const Route = createFileRoute("/uno-a-uno")({
+export const Route = createFileRoute("/uno-a-uno/")({
   head: () => ({
     meta: [
       { title: "Conversaciones 1:1 — People Hub" },
