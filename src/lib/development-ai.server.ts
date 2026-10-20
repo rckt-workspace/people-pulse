@@ -1,5 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import type { AiSuggestion } from "./development.functions";
+import { chatWithOpenRouter, isOpenRouterConfigured } from "@/agent/providers/openrouter.provider.server";
 
 type Ctx = {
   employee: {
@@ -76,8 +77,7 @@ const CATEGORIES = [
 ];
 
 export async function askPeopleAi(ctx: Ctx): Promise<AiSuggestion[]> {
-  const apiKey = process.env["LOVABLE_API_KEY"];
-  if (!apiKey) return [];
+  if (!isOpenRouterConfigured()) return [];
 
   const prompt = `Eres People AI, copiloto de People & Culture. Propón máximo 3 oportunidades de desarrollo para esta persona, coherentes con su cargo real y basadas SOLO en la evidencia entregada. Español neutro, tono profesional y respetuoso, sin diagnósticos personales.
 
@@ -87,21 +87,13 @@ ${JSON.stringify(ctx, null, 1)}
 Categorías válidas: ${CATEGORIES.join(", ")}.
 Responde SOLO con JSON: {"suggestions":[{"title","category","rationale","evidence","current_state","target_state","suggested_actions"}]}`;
 
-  const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-    method: "POST",
-    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-    body: JSON.stringify({
-      model: "google/gemini-3-flash-preview",
-      messages: [{ role: "user", content: prompt }],
-      response_format: { type: "json_object" },
-    }),
+  const raw = await chatWithOpenRouter({
+    messages: [{ role: "user", content: prompt }],
+    responseFormat: { type: "json_object" },
+    temperature: 0.2,
   });
-  if (!response.ok) throw new Error(`AI gateway ${response.status}`);
-  const payload = (await response.json()) as {
-    choices?: { message?: { content?: string } }[];
-  };
-  const content = payload.choices?.[0]?.message?.content ?? "{}";
-  const parsed = JSON.parse(content) as { suggestions?: AiSuggestion[] };
+
+  const parsed = JSON.parse(raw) as { suggestions?: AiSuggestion[] };
   return parsed.suggestions ?? [];
 }
 
