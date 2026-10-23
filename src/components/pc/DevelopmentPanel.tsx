@@ -122,7 +122,8 @@ export function DevelopmentPanel({
     weights,
   );
 
-  const aiSuggestions = suggest.data ?? [];
+  const aiSuggestions = suggest.data?.suggestions ?? [];
+  const aiFallback = suggest.data?.source === "fallback" && aiSuggestions.length > 0;
 
   return (
     <div className="space-y-6">
@@ -415,6 +416,11 @@ export function DevelopmentPanel({
             Máximo 3 propuestas basadas en sesiones, bloqueos, indicadores, formación y compromisos.
             Ninguna se agrega al plan sin tu aprobación.
           </p>
+          {aiFallback ? (
+            <p className="text-xs text-muted-foreground">
+              Sugerencias generadas con análisis local. El servicio de IA no estuvo disponible.
+            </p>
+          ) : null}
           <div className="space-y-3">
             {aiSuggestions.length === 0 ? (
               <EmptyState title="Sin sugerencias por ahora" />

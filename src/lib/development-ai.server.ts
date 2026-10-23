@@ -19,7 +19,7 @@ type Ctx = {
   answers: { question_text: string; answer: string | null }[];
 };
 
-function serverClient() {
+export function serverClient() {
   const key = process.env["SUPABASE_PUBLISHABLE_KEY"]!;
   return createClient(process.env["SUPABASE_URL"]!, key, {
     auth: { persistSession: false, autoRefreshToken: false },
