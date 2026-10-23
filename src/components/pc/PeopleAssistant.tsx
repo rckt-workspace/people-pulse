@@ -6,15 +6,16 @@ import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 
 import {
-  chatWithPeopleAssistant,
-  type AssistantAnswer,
-} from "@/agent/functions/people-assistant.functions";
+  sendPeopleAiMessage,
+  warmUpPeopleAi,
+  type PeopleAiAnswer,
+} from "@/agent/client/people-ai-http";
 
 type ChatMessage = {
   id: number;
   role: "user" | "assistant";
   text: string;
-  source?: AssistantAnswer["source"];
+  source?: PeopleAiAnswer["source"];
   error?: boolean;
 };
 
@@ -112,11 +113,16 @@ export function PeopleAssistant() {
     setMessages((current) => [...current, { ...message, id: ++nextId.current }]);
 
   const ask = useMutation({
-    mutationFn: (message: string) => chatWithPeopleAssistant({ data: { message, employeeId } }),
+    mutationFn: (message: string) => sendPeopleAiMessage({ message, employeeId }),
     onSuccess: (result) => push({ role: "assistant", text: result.answer, source: result.source }),
     onError: () =>
       push({ role: "assistant", text: "No pude responder ahora. Inténtalo de nuevo.", error: true }),
   });
+
+  // Warmup una sola vez al montar: despierta el servicio (cold start de Render Free).
+  useEffect(() => {
+    void warmUpPeopleAi();
+  }, []);
 
   // Animación de entrada: se monta cerrado y pasa a visible en el siguiente frame.
   useEffect(() => {

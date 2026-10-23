@@ -21,6 +21,8 @@ import { Route as PersonasNuevaRouteImport } from './routes/personas.nueva'
 import { Route as SesionesIdRouteImport } from './routes/sesiones.$id'
 import { Route as UnoAUnoIndexRouteImport } from './routes/uno-a-uno.index'
 import { Route as UnoAUnoSessionIdRouteImport } from './routes/uno-a-uno.$sessionId'
+import { Route as ApiPeopleAiChatRouteImport } from './routes/api.people-ai.chat'
+import { Route as ApiPeopleAiHealthRouteImport } from './routes/api.people-ai.health'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -82,6 +84,16 @@ const UnoAUnoSessionIdRoute = UnoAUnoSessionIdRouteImport.update({
   path: '/uno-a-uno/$sessionId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPeopleAiChatRoute = ApiPeopleAiChatRouteImport.update({
+  id: '/api/people-ai/chat',
+  path: '/api/people-ai/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPeopleAiHealthRoute = ApiPeopleAiHealthRouteImport.update({
+  id: '/api/people-ai/health',
+  path: '/api/people-ai/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -96,6 +108,8 @@ export interface FileRoutesByFullPath {
   '/uno-a-uno/$sessionId': typeof UnoAUnoSessionIdRoute
   '/personas/': typeof PersonasIndexRoute
   '/uno-a-uno/': typeof UnoAUnoIndexRoute
+  '/api/people-ai/chat': typeof ApiPeopleAiChatRoute
+  '/api/people-ai/health': typeof ApiPeopleAiHealthRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -110,6 +124,8 @@ export interface FileRoutesByTo {
   '/uno-a-uno/$sessionId': typeof UnoAUnoSessionIdRoute
   '/personas': typeof PersonasIndexRoute
   '/uno-a-uno': typeof UnoAUnoIndexRoute
+  '/api/people-ai/chat': typeof ApiPeopleAiChatRoute
+  '/api/people-ai/health': typeof ApiPeopleAiHealthRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -125,6 +141,8 @@ export interface FileRoutesById {
   '/uno-a-uno/$sessionId': typeof UnoAUnoSessionIdRoute
   '/personas/': typeof PersonasIndexRoute
   '/uno-a-uno/': typeof UnoAUnoIndexRoute
+  '/api/people-ai/chat': typeof ApiPeopleAiChatRoute
+  '/api/people-ai/health': typeof ApiPeopleAiHealthRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -141,6 +159,8 @@ export interface FileRouteTypes {
     | '/uno-a-uno/$sessionId'
     | '/personas/'
     | '/uno-a-uno/'
+    | '/api/people-ai/chat'
+    | '/api/people-ai/health'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -155,6 +175,8 @@ export interface FileRouteTypes {
     | '/uno-a-uno/$sessionId'
     | '/personas'
     | '/uno-a-uno'
+    | '/api/people-ai/chat'
+    | '/api/people-ai/health'
   id:
     | '__root__'
     | '/'
@@ -169,6 +191,8 @@ export interface FileRouteTypes {
     | '/uno-a-uno/$sessionId'
     | '/personas/'
     | '/uno-a-uno/'
+    | '/api/people-ai/chat'
+    | '/api/people-ai/health'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -184,6 +208,8 @@ export interface RootRouteChildren {
   UnoAUnoSessionIdRoute: typeof UnoAUnoSessionIdRoute
   PersonasIndexRoute: typeof PersonasIndexRoute
   UnoAUnoIndexRoute: typeof UnoAUnoIndexRoute
+  ApiPeopleAiChatRoute: typeof ApiPeopleAiChatRoute
+  ApiPeopleAiHealthRoute: typeof ApiPeopleAiHealthRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -272,6 +298,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UnoAUnoSessionIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/people-ai/chat': {
+      id: '/api/people-ai/chat'
+      path: '/api/people-ai/chat'
+      fullPath: '/api/people-ai/chat'
+      preLoaderRoute: typeof ApiPeopleAiChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/people-ai/health': {
+      id: '/api/people-ai/health'
+      path: '/api/people-ai/health'
+      fullPath: '/api/people-ai/health'
+      preLoaderRoute: typeof ApiPeopleAiHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -288,6 +328,8 @@ const rootRouteChildren: RootRouteChildren = {
   UnoAUnoSessionIdRoute: UnoAUnoSessionIdRoute,
   PersonasIndexRoute: PersonasIndexRoute,
   UnoAUnoIndexRoute: UnoAUnoIndexRoute,
+  ApiPeopleAiChatRoute: ApiPeopleAiChatRoute,
+  ApiPeopleAiHealthRoute: ApiPeopleAiHealthRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
