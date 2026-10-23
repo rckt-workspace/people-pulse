@@ -14,6 +14,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { AppShell } from "@/components/pc/AppShell";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { PeopleAssistant } from "@/components/pc/PeopleAssistant";
 
 
 function NotFoundComponent() {
@@ -136,6 +137,7 @@ function RootComponent() {
           {/* Required: nested routes render here. */}
           <Outlet />
         </AppShell>
+        <PeopleAssistant />
         <Toaster />
       </TooltipProvider>
     </QueryClientProvider>
