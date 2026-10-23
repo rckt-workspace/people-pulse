@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation } from "@tanstack/react-router";
 import { useMutation } from "@tanstack/react-query";
 import { Send, Sparkles, X } from "lucide-react";
+import ReactMarkdown, { type Components } from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 import {
   chatWithPeopleAssistant,
@@ -25,6 +27,58 @@ const QUICK_ACTIONS = [
   "Analizar bloqueos",
   "Oportunidades de desarrollo",
 ];
+
+// Estilos editoriales para las respuestas de People AI. Sin HTML crudo: react-markdown no renderiza HTML por defecto.
+const markdownComponents: Components = {
+  p: ({ children }) => <p className="my-2 text-sm leading-6 first:mt-0 last:mb-0">{children}</p>,
+  strong: ({ children }) => <strong className="font-semibold text-foreground">{children}</strong>,
+  h1: ({ children }) => (
+    <h1 className="mb-1.5 mt-3 text-base font-semibold text-foreground first:mt-0">{children}</h1>
+  ),
+  h2: ({ children }) => (
+    <h2 className="mb-1.5 mt-3 text-base font-semibold text-foreground first:mt-0">{children}</h2>
+  ),
+  h3: ({ children }) => (
+    <h3 className="mb-1 mt-3 text-sm font-semibold text-foreground first:mt-0">{children}</h3>
+  ),
+  ul: ({ children }) => (
+    <ul className="my-2 list-disc space-y-1 pl-5 text-sm marker:text-primary/60 first:mt-0 last:mb-0">{children}</ul>
+  ),
+  ol: ({ children }) => (
+    <ol className="my-2 list-decimal space-y-1 pl-5 text-sm marker:font-medium marker:text-primary first:mt-0 last:mb-0">{children}</ol>
+  ),
+  li: ({ children }) => <li className="text-sm leading-relaxed">{children}</li>,
+  hr: () => <hr className="my-3 border-border" />,
+  blockquote: ({ children }) => (
+    <blockquote className="my-2 border-l-2 border-primary/30 pl-3 text-muted-foreground">{children}</blockquote>
+  ),
+  code: ({ children }) => (
+    <code className="rounded bg-slate-100 px-1 py-0.5 font-mono text-xs text-slate-700">{children}</code>
+  ),
+  pre: ({ children }) => (
+    <pre className="my-2 overflow-x-auto rounded-lg bg-slate-100 p-3 text-xs">{children}</pre>
+  ),
+  a: ({ href, children }) => (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-primary underline decoration-primary/40 underline-offset-2 hover:decoration-primary"
+    >
+      {children}
+    </a>
+  ),
+  // Las tablas se evitan en el prompt; si llegan, se contienen dentro del panel.
+  table: ({ children }) => (
+    <div className="my-2 overflow-x-auto rounded-lg border border-border">
+      <table className="w-full border-collapse text-xs">{children}</table>
+    </div>
+  ),
+  th: ({ children }) => (
+    <th className="border-b border-border bg-slate-50 px-2 py-1.5 text-left font-semibold text-foreground">{children}</th>
+  ),
+  td: ({ children }) => <td className="border-b border-border px-2 py-1.5 align-top last:border-0">{children}</td>,
+};
 
 // Detecta la persona abierta en /personas/:id para pasarla como contexto.
 function employeeFromPath(pathname: string): string | undefined {
@@ -151,7 +205,7 @@ export function PeopleAssistant() {
       >
         <div className="flex items-start gap-3">
           <Avatar className="size-8" />
-          <div className="max-w-[88%] whitespace-pre-line rounded-2xl rounded-tl-md border border-border bg-background px-4 py-3 text-sm leading-relaxed text-foreground shadow-sm">
+          <div className="min-w-0 flex-1 whitespace-pre-line rounded-2xl rounded-tl-md border border-border bg-background px-4 py-3 text-sm leading-relaxed text-foreground shadow-sm">
             {INTRO}
           </div>
         </div>
@@ -181,15 +235,21 @@ export function PeopleAssistant() {
             ) : (
               <div key={m.id} className="flex items-start gap-3">
                 <Avatar className="size-8" />
-                <div className="min-w-0 max-w-[84%] space-y-2">
+                <div className="min-w-0 flex-1 space-y-2">
                   <div
-                    className={`whitespace-pre-line rounded-2xl rounded-tl-md px-4 py-3 text-sm leading-relaxed shadow-sm ${
+                    className={`min-w-0 break-words rounded-2xl rounded-tl-md px-4 py-3 shadow-sm ${
                       m.error
-                        ? "border border-destructive/30 bg-destructive/5 text-destructive"
+                        ? "border border-destructive/30 bg-destructive/5 text-sm text-destructive"
                         : "border border-border bg-background text-foreground"
                     }`}
                   >
-                    {m.text}
+                    {m.error ? (
+                      m.text
+                    ) : (
+                      <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
+                        {m.text}
+                      </ReactMarkdown>
+                    )}
                   </div>
                   {m.source === "fallback" ? (
                     <div className="flex flex-wrap items-center gap-1.5 pl-1 text-xs text-muted-foreground">

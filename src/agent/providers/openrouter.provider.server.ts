@@ -20,6 +20,9 @@ export type OpenRouterChatOptions = {
   temperature?: number;
 };
 
+// Los modelos gratuitos enrutados por openrouter/free pueden tardar más de 30 s con contexto real.
+const OPENROUTER_TIMEOUT_MS = 90_000;
+
 function requireServerEnv(name: string): string {
   const value = process.env[name]?.trim();
   if (!value) throw new Error(`Missing required server environment variable: ${name}`);
@@ -45,7 +48,7 @@ export async function chatWithOpenRouter(options: OpenRouterChatOptions): Promis
   headers["X-Title"] = appName;
 
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 30_000);
+  const timeout = setTimeout(() => controller.abort(), OPENROUTER_TIMEOUT_MS);
 
   try {
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
