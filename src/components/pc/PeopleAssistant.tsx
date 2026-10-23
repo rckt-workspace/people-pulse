@@ -114,8 +114,11 @@ export function PeopleAssistant() {
   const ask = useMutation({
     mutationFn: (message: string) => chatWithPeopleAssistant({ data: { message, employeeId } }),
     onSuccess: (result) => push({ role: "assistant", text: result.answer, source: result.source }),
-    onError: () =>
-      push({ role: "assistant", text: "No pude responder ahora. Inténtalo de nuevo.", error: true }),
+    onError: (error) => {
+      // TEMPORAL: diagnóstico. Revertir antes de commit.
+      console.error("[People AI UI] serverFn failed", error);
+      push({ role: "assistant", text: "No pude responder ahora. Inténtalo de nuevo.", error: true });
+    },
   });
 
   // Animación de entrada: se monta cerrado y pasa a visible en el siguiente frame.

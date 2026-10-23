@@ -6,8 +6,31 @@ import { supabase } from './client'
 // the browser never attaches the bearer token to serverFn RPCs.
 export const attachSupabaseAuth = createMiddleware({ type: 'function' }).client(
   async ({ next }) => {
-    const { data } = await supabase.auth.getSession()
-    const token = data.session?.access_token
+    // TEMPORAL: observabilidad de diagnóstico. Revertir antes de commit.
+    console.info("[People AI auth] getSession start")
+    let session: { access_token: string } | null | undefined
+    try {
+      const { data, error } = await supabase.auth.getSession()
+      if (error) {
+        console.error("[People AI auth] getSession failed", {
+          name: error instanceof Error ? error.name : "unknown",
+          message: error instanceof Error ? error.message : String(error),
+        })
+      } else {
+        console.info("[People AI auth] getSession ok", {
+          hasSession: Boolean(data.session),
+          hasToken: Boolean(data.session?.access_token),
+        })
+      }
+      session = data?.session
+    } catch (error) {
+      console.error("[People AI auth] getSession failed", {
+        name: error instanceof Error ? error.name : "unknown",
+        message: error instanceof Error ? error.message : String(error),
+      })
+      throw error
+    }
+    const token = session?.access_token
     return next({
       headers: token ? { Authorization: `Bearer ${token}` } : {},
     })
